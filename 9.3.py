@@ -2,8 +2,8 @@
 ## 9.3 File Encryption & Decryption, Caesar's Cipher
 ## 3/25
 
-#122 is ASCII value of lowercase 'z', so last letter we will need
-MAX_ASCII_VAL = 122
+#Should be able to encode all ASCII characters (values 0-252), 255-3=252
+MAX_ASCII_VAL = 252
 
 #NOTE: ord() function returns ASCII value of character
 # chr() function returns corresponding character of int by ASCII (opposite of
@@ -17,38 +17,33 @@ def create_codex():
     '''
     codes = {}
 
-    char = 'A'
-    ascii = ord(char)
+    char = chr(0) #start at ASCII value 0 (NUL)
+    ascii = 0
 
     while ascii <= MAX_ASCII_VAL:
         codes[char] = chr(ascii + 3)
         ascii += 1
         char = chr(ascii)
 
-    #take care of ' ', '\n', '\t'
-    codes[' '] = '1'
-    codes['\n'] = '2'
-    codes['\t'] = '3'
-
     return codes
 
 
 def encrypt(infile, encrypted, codes):
-        '''
-        Inputs: input file, output file (encrypted input file), dictionary of codes
-        Description: encrypts file using 3 char shift (Caesar Cipher), going forward
-            3 chars
-        Returns:
-        '''
+    '''
+    Inputs: input file, output file (encrypted input file), dictionary of codes
+    Description: encrypts file using 3 char shift (Caesar Cipher), going forward
+        3 chars
+    Returns:
+    '''
 
     #read each line in file
     for line in infile:
         #read and encrypt each character for each line
         for char in line:
-            if char.isalpha() or char == ' ' or char == '\n' or char == '\t':
+            if char in codes:
                 encrypted.write(codes[char])
             else:
-                #if not letter or ' ' or '\n' or '\t', can't encrypt or decrypt
+                #cant encrypt or decrypt so keep this char the same
                 encrypted.write(char)
 
 
@@ -79,7 +74,7 @@ def main():
     print('This is the code for encrypting files:\n', codes)
 
     #read in file and encrypt
-    infile = open('test.txt', 'r')
+    infile = open('python.txt', 'r')
     encrypted = open('encrypted.txt', 'w')
 
 
