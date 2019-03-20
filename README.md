@@ -1,4 +1,4 @@
-# Caesar's Cipher
+# Caesar Cipher
 
-## Implementation of Caesar's Cipher for ASCII characters with values 0-252
+## Implementation of Caesar Cipher for ASCII characters with values 0-252
 'python.txt' is the file to be encrypted. Note that the contents 'decrypted.txt' and 'python.txt' are the same. And 'encrypted.txt' is the encrypted version of 'python.txt'
